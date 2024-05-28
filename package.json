@@ -1,0 +1,16 @@
+{
+  "name": "w",
+  "version": "1.0.0",
+  "description": "w",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx cypress run"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@cypress/xpath": "^2.0.3",
+    "cypress": "^13.10.0",
+    "cypress-mochawesome-reporter": "^3.8.2"
+  }
+}
