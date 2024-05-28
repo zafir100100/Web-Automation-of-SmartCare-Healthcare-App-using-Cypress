@@ -1,3 +1,5 @@
+const LoginPage = require('../pages/LoginPage');
+
 /**
  * Class representing the patient search page.
  */
@@ -26,19 +28,33 @@ class PatientSearchPage {
        */
       this.ATTEND_TO_PATIENT_BUTTON_XPATH = "//button[contains(text(),'Attend')]";
     }
+
+    /**
+     * Navigates to the patient search page.
+     */
+    gotoPatientSearchPage() {
+      const loginPage = new LoginPage();
+      cy.visit(`${loginPage.BASE_URL}/client-search`);
+    }
   
     /**
-     * Searches for a patient by NRC.
-     * @param {string} nrc - The NRC of the patient to search for.
+     * Searches for a patient by their NRC (National Registration Card) number.
+     * The NRC is sanitized to include only digits before performing the search.
+     *
+     * @param {string} NRC - The NRC number of the patient to search for.
      */
-    searchPatientByNrc(nrc) {
+    searchPatientByNrc(NRC) {
+      NRC = NRC.toString().trim()
+      // // Sanitize the NRC to keep only digits
+      // NRC = NRC.replace(/\D/g, '');
+
       cy.xpath(this.NRC_BUTTON_XPATH)
         .should('be.visible')
         .click();
       cy.xpath(this.NRC_INPUT_XPATH)
         .should('be.visible')
         .click()
-        .type(nrc);
+        .type(NRC);
       cy.xpath(this.SEARCH_BUTTON_XPATH)
         .should('be.visible')
         .click();

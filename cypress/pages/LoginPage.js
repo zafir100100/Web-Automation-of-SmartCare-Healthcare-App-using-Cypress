@@ -9,7 +9,7 @@ class LoginPage {
     /**
      * @property {string} BASE_URL - The base URL of the staging environment.
      */
-    this.BASE_URL = "https://staging-scweb.arcapps.org/";
+    this.BASE_URL = "https://staging-scweb.arcapps.org";
     
     /**
      * @property {string} USERNAME_XPATH - XPath for the username input field.
