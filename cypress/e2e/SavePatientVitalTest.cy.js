@@ -36,32 +36,4 @@ describe('Save patient vital information on https://staging-scweb.arcapps.org/',
     vitalPage.clickAddVital();
     vitalPage.saveVital(68, 168, 132, 67, 62, 19, null, null, null);
   });
-  
-  // it('should log in successfully', () => {
-  //   const loginPage = new LoginPage();
-  //   loginPage.gotoLoginPage();
-  //   loginPage.doLogin('tester', 'tester2023!');
-  // });
-
-  // it('should select the facility', () => {
-  //   const facilitySelectionPage = new FacilitySelectionPage();
-  //   facilitySelectionPage.setFacility('Lusaka', 'Lusaka', 'Dr Watson Dental Clinic');
-  // });
-
-  // it('should search for a patient by NRC and attend to the patient', () => {
-  //   const patientSearchPage = new PatientSearchPage();
-  //   patientSearchPage.searchPatientByNrc('111111111');
-  //   patientSearchPage.attendToPatient();
-  // });
-
-  // it('should navigate to the vitals page', () => {
-  //   const servicePointPage = new ServicePointPage();
-  //   servicePointPage.clickVital();
-  // });
-
-  // it('should add and save patient vitals', () => {
-  //   const vitalPage = new VitalPage();
-  //   vitalPage.clickAddVital();
-  //   vitalPage.saveVital(68, 168, 132, 67, 62, 19, null, null, null);
-  // });
 });
