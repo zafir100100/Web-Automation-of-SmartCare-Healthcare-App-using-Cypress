@@ -151,3 +151,4 @@ dist
 .svelte-kit
 
 # End of https://www.toptal.com/developers/gitignore/api/cypressio,node
+package-lock.json
