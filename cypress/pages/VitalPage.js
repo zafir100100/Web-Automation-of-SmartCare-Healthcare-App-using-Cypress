@@ -74,82 +74,48 @@ class VitalPage {
     cy.xpath(this.ADD_VITAL_BUTTON_XPATH)
       .should('be.visible')
       .click();
+    cy.xpath(this.ADD_VITAL_BUTTON_XPATH)
+      .should('not.be.visible');
   }
 
   /**
-   * Fills out the vital form and saves the information.
-   * @param {string|number} weight - The weight of the patient.
-   * @param {string|number} height - The height of the patient.
-   * @param {string|number} systolic - The systolic blood pressure.
-   * @param {string|number} diastolic - The diastolic blood pressure.
-   * @param {string|number} temperature - The body temperature of the patient.
-   * @param {string|number} pulseRate - The pulse rate.
-   * @param {string|number} respiratoryRate - The respiratory rate.
-   * @param {string|number} oxygenSaturation - The oxygen saturation.
-   * @param {string|number} abdominalCircumference - The abdominal circumference.
-   * @param {string} comment - Additional comments.
+   * Efficiently saves the vital signs of a patient to the system using Cypress commands.
+   * Vital signs are added to the map only if they are not null, reducing unnecessary operations.
+   * @param {string | null} Weight - Patient's weight in kilograms.
+   * @param {string | null} Height - Patient's height in centimeters.
+   * @param {string | null} Systolic - Systolic blood pressure in mmHg.
+   * @param {string | null} Diastolic - Diastolic blood pressure in mmHg.
+   * @param {string | null} Temperature - Body temperature in degrees Celsius.
+   * @param {string | null} PulseRate - Heart rate in beats per minute.
+   * @param {string | null} RespiratoryRate - Respiratory rate in breaths per minute.
+   * @param {string | null} OxygenSaturation - Oxygen saturation in percentage.
+   * @param {string | null} AbdominalCircumference - Abdominal circumference in centimeters.
+   * @param {string | null} Comment - Optional comment regarding the patient's condition.
    */
-  saveVital(weight, height, systolic, diastolic, temperature, pulseRate, respiratoryRate, oxygenSaturation, abdominalCircumference, comment) {
-    if (weight !== null && weight !== undefined) {
-      cy.xpath(this.WEIGHT_XPATH)
+  saveVital(Weight, Height, Systolic, Diastolic, Temperature, PulseRate, RespiratoryRate, OxygenSaturation, AbdominalCircumference, Comment) {
+    const vitalSigns = new Map();
+
+    // Add only non-null values to the map.
+    if (Weight !== null) vitalSigns.set('Weight', { value: Weight, xpath: this.WEIGHT_XPATH });
+    if (Height !== null) vitalSigns.set('Height', { value: Height, xpath: this.HEIGHT_XPATH });
+    if (Systolic !== null) vitalSigns.set('Systolic', { value: Systolic, xpath: this.SYSTOLIC_XPATH });
+    if (Diastolic !== null) vitalSigns.set('Diastolic', { value: Diastolic, xpath: this.DIASTOLIC_XPATH });
+    if (Temperature !== null) vitalSigns.set('Temperature', { value: Temperature, xpath: this.TEMPERATURE_XPATH });
+    if (PulseRate !== null) vitalSigns.set('PulseRate', { value: PulseRate, xpath: this.PULSE_RATE_XPATH });
+    if (RespiratoryRate !== null) vitalSigns.set('RespiratoryRate', { value: RespiratoryRate, xpath: this.RESPIRATORY_RATE_XPATH });
+    if (OxygenSaturation !== null) vitalSigns.set('OxygenSaturation', { value: OxygenSaturation, xpath: this.OXYGEN_SATURATION_XPATH });
+    if (AbdominalCircumference !== null) vitalSigns.set('AbdominalCircumference', { value: AbdominalCircumference, xpath: this.ABDOMINAL_CIRCUMFERENCE_XPATH });
+    if (Comment !== null) vitalSigns.set('Comment', { value: Comment, xpath: this.COMMENT_XPATH });
+
+    // Iterate through each entry in the map and apply the Cypress commands.
+    vitalSigns.forEach((data, key) => {
+      cy.xpath(data.xpath)
         .should('be.visible')
         .clear()
-        .type(weight.toString());
-    }
-    if (height !== null && height !== undefined) {
-      cy.xpath(this.HEIGHT_XPATH)
-        .should('be.visible')
-        .clear()
-        .type(height.toString());
-    }
-    if (systolic !== null && systolic !== undefined) {
-      cy.xpath(this.SYSTOLIC_XPATH)
-        .should('be.visible')
-        .clear()
-        .type(systolic.toString());
-    }
-    if (diastolic !== null && diastolic !== undefined) {
-      cy.xpath(this.DIASTOLIC_XPATH)
-        .should('be.visible')
-        .clear()
-        .type(diastolic.toString());
-    }
-    if (temperature !== null && temperature !== undefined) {
-      cy.xpath(this.TEMPERATURE_XPATH)
-        .should('be.visible')
-        .clear()
-        .type(temperature.toString());
-    }
-    if (pulseRate !== null && pulseRate !== undefined) {
-      cy.xpath(this.PULSE_RATE_XPATH)
-        .should('be.visible')
-        .clear()
-        .type(pulseRate.toString());
-    }
-    if (respiratoryRate !== null && respiratoryRate !== undefined) {
-      cy.xpath(this.RESPIRATORY_RATE_XPATH)
-        .should('be.visible')
-        .clear()
-        .type(respiratoryRate.toString());
-    }
-    if (oxygenSaturation !== null && oxygenSaturation !== undefined) {
-      cy.xpath(this.OXYGEN_SATURATION_XPATH)
-        .should('be.visible')
-        .clear()
-        .type(oxygenSaturation.toString());
-    }
-    if (abdominalCircumference !== null && abdominalCircumference !== undefined) {
-      cy.xpath(this.ABDOMINAL_CIRCUMFERENCE_XPATH)
-        .should('be.visible')
-        .clear()
-        .type(abdominalCircumference.toString());
-    }
-    if (comment !== null && comment !== undefined) {
-      cy.xpath(this.COMMENT_XPATH)
-        .should('be.visible')
-        .clear()
-        .type(comment.toString());
-    }
+        .type(data.value);
+    });
+
+    // Click the save button after all fields have been processed.
     cy.xpath(this.SAVE_BUTTON_XPATH)
       .should('be.visible')
       .click();
