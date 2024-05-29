@@ -3,14 +3,10 @@ const fs = require('fs');
 const path = require('path');
 const csv = require("csvtojson");
 
-
 module.exports = defineConfig({
-  // chromeWebSecurity: false, // for avoiding chrome web security
   reporter: 'cypress-mochawesome-reporter',
   e2e: {
-    // watchForFileChanges: false, // for avoiding watching for file changes
     setupNodeEvents(on, config) {
-      // implement node event listeners here
       require('cypress-mochawesome-reporter/plugin')(on);
       on('task', {
         writeVitalsJson() {
@@ -22,7 +18,14 @@ module.exports = defineConfig({
               .fromFile(csvFilePath)
               .then((jsonObj) => {
                 // Keep only the first 5 rows
-                const dataSet = jsonObj.slice(0, 5);
+                let dataSet = jsonObj.slice(0, 3);
+
+                // Directly modify each object in the dataSet to convert "NULL" to null
+                dataSet = dataSet.map(obj => {
+                  return Object.fromEntries(
+                    Object.entries(obj).map(([key, value]) => [key, value === "NULL" ? null : value])
+                  );
+                });
 
                 fs.writeFile(jsonFilePath, JSON.stringify(dataSet, null, 2), 'utf8', (err) => {
                   if (err) {
