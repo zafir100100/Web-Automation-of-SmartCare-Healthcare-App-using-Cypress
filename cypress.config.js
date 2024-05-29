@@ -6,6 +6,7 @@ const csv = require("csvtojson");
 module.exports = defineConfig({
   reporter: 'cypress-mochawesome-reporter',
   e2e: {
+    video: true,
     setupNodeEvents(on, config) {
       require('cypress-mochawesome-reporter/plugin')(on);
       on('task', {
@@ -17,8 +18,9 @@ module.exports = defineConfig({
             csv()
               .fromFile(csvFilePath)
               .then((jsonObj) => {
-                // Keep only the first 5 rows
-                let dataSet = jsonObj.slice(0, 5);
+                // // Keep only the first 5 rows
+                // let dataSet = jsonObj.slice(0, 5);
+                let dataSet = jsonObj;
 
                 // Directly modify each object in the dataSet to convert "NULL" to null
                 dataSet = dataSet.map(obj => {

@@ -4,7 +4,7 @@
   "description": "w",
   "main": "index.js",
   "scripts": {
-    "test": "cls && npx cypress run --browser firefox:dev"
+    "test": "cls && npx cypress run --browser chrome --headed"
   },
   "author": "",
   "license": "ISC",
