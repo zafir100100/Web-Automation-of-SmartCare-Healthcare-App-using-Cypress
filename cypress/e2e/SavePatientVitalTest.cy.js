@@ -49,18 +49,18 @@ describe('Save patient vital information on https://staging-scweb.arcapps.org/',
         // Add and Save Patient Vitals
         const vitalPage = new VitalPage();
         vitalPage.clickAddVital();
-        // vitalPage.saveVital(
-        //   vitalStats.Weight,
-        //   vitalStats.Height,
-        //   vitalStats.Systolic,
-        //   vitalStats.Diastolic,
-        //   vitalStats.Temperature,
-        //   vitalStats.PulseRate,
-        //   vitalStats.RespiratoryRate,
-        //   vitalStats.OxygenSaturation,
-        //   vitalStats.AbdominalCircumference,
-        //   vitalStats.Comment
-        // );
+        vitalPage.saveVital(
+          vitalData.Weight,
+          vitalData.Height,
+          vitalData.Systolic,
+          vitalData.Diastolic,
+          vitalData.Temperature,
+          vitalData.PulseRate,
+          vitalData.RespiratoryRate,
+          vitalData.OxygenSaturation,
+          vitalData.AbdominalCircumference,
+          vitalData.Comment
+        );
       }
     });
     cy.screenshot('vitals');
