@@ -14,39 +14,28 @@ describe('Save patient vital information on https://staging-scweb.arcapps.org/',
   });
 
   it('should load data in dataset', () => {
-    // Use Cypress fixture to read CSV data
-    cy.fixture('Sample Dataset.csv').then((csvData) => {
-      const requiredKeys = [
-        'NRC', 'Weight', 'Height', 'BMI', 'Systolic', 'SystolicIfUnrecordable',
-        'Diastolic', 'DiastolicIfUnrecordable', 'Temperature', 'PulseRate',
-        'RespiratoryRate', 'OxygenSaturation', 'MUAC', 'MUACScore',
-        'AbdominalCircumference', 'HeadCircumference', 'HCScore',
-        'RandomBloodSugar', 'Comment', 'VitalsDate'
-      ];
-    
-      const rows = csvData.trim().split('\n'); // Trim and split by newline
-    
-      dataSet = rows.slice(1).map(row => {
-        const values = row.trim().split(',').map(value => {
-          value = value.trim();
-          return (value === "NULL" || value === "" || value === " " || isNaN(value) && !isNaN(parseFloat(value))) ? null : value;
-        }); // Clean values and replace any invalid value with null
-    
-        const rowObj = requiredKeys.reduce((obj, header, index) => {
-          obj[header] = values[index] !== undefined ? values[index] : null;
-          return obj;
-        }, {});
-    
-        return rowObj;
+    // Trigger the task to read CSV and write JSON
+    cy.task('writeVitalsJson').then(() => {
+      // Now you can read the JSON file and verify its contents if needed
+      cy.fixture('vitals.json').then((jsonData) => {
+        // Perform assertions or further operations on jsonData
+        // console.log(jsonData);
+  
+        // Example assertions (adjust based on your requirements)
+        // expect(jsonData).to.have.length(5);
+        jsonData.forEach(item => {
+          expect(item).to.have.all.keys(
+            'NRC', 'Weight', 'Height', 'BMI', 'Systolic', 'SystolicIfUnrecordable',
+            'Diastolic', 'DiastolicIfUnrecordable', 'Temperature', 'PulseRate',
+            'RespiratoryRate', 'OxygenSaturation', 'MUAC', 'MUACScore',
+            'AbdominalCircumference', 'HeadCircumference', 'HCScore',
+            'RandomBloodSugar', 'Comment', 'VitalsDate'
+          );
+        });
       });
-
-      // Keep only the first 5 rows
-      dataSet = dataSet.slice(0, 5);
-
-      // Use Cypress task to write the data to vitals.json
-      cy.task('writeVitalsJson', dataSet);
     });
   });
+  
 
   // it('should log in and perform actions for each row in the dataset', () => {
   //   const loginPage = new LoginPage();
