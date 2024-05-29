@@ -4,13 +4,15 @@
   "description": "w",
   "main": "index.js",
   "scripts": {
-    "test": "cls && npx cypress run --browser firefox:dev --headed"
+    "test": "cls && npx cypress run --browser firefox:dev"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@cypress/xpath": "^2.0.3",
     "cypress": "^13.10.0",
-    "cypress-mochawesome-reporter": "^3.8.2"
+    "cypress-mochawesome-reporter": "^3.8.2",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7"
   }
 }
