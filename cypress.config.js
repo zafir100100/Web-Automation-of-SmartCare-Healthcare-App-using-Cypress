@@ -18,7 +18,7 @@ module.exports = defineConfig({
               .fromFile(csvFilePath)
               .then((jsonObj) => {
                 // Keep only the first 5 rows
-                let dataSet = jsonObj.slice(0, 3);
+                let dataSet = jsonObj.slice(0, 5);
 
                 // Directly modify each object in the dataSet to convert "NULL" to null
                 dataSet = dataSet.map(obj => {
@@ -27,11 +27,13 @@ module.exports = defineConfig({
                   );
                 });
 
+                // Write the JSON file
                 fs.writeFile(jsonFilePath, JSON.stringify(dataSet, null, 2), 'utf8', (err) => {
                   if (err) {
-                    return reject(err);
+                    reject(err);
+                  } else {
+                    resolve('JSON file has been written successfully.');
                   }
-                  resolve(null);
                 });
               })
               .catch(err => reject(err));
