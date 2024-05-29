@@ -54,12 +54,14 @@ Overall, Cypress is a powerful and efficient tool for web automation that can he
 - User Login with valid credential.
 - User makes a vital entry for patient.
 
-<!-- ## Mocha Awesome Report:
+## Mocha Awesome Report:
 
-![Screenshot (19)](https://github.com/zafir100100/Web-Automation-with-Cypress/blob/master/cypress/screenshots/MochawesomeReport.PNG)
+![image](https://github.com/zafir100100/Web-Automation-of-SmartCare-Healthcare-App-using-Cypress/assets/55599023/6228ba9d-af07-4b33-a2f3-cf1c68704310)
+
 
 ## Automation Output Video:
 
-https://user-images.githubusercontent.com/55599023/227712331-3a731901-3e67-4da4-97ed-0d6d53e02b49.mp4 -->
+https://github.com/zafir100100/Web-Automation-of-SmartCare-Healthcare-App-using-Cypress/assets/55599023/91c40ea8-f53e-4f30-bd85-b723114f07dc
+
 
 
